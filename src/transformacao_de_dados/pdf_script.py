@@ -1,6 +1,6 @@
 import pdfplumber
 import pandas as pd
-
+from src.funcoes_extras import compactar_arquivos
 
 def extrair_dados(caminho_pdf: str, pagina_inicial: int):
     dados_tabela = []
@@ -26,6 +26,7 @@ def extrair_dados(caminho_pdf: str, pagina_inicial: int):
                         linha[4] = 'Seg. Ambulatorial'
                     dados_tabela.append(linha)
                 print(tabela)
+
     return dados_tabela, titulos
 
 
@@ -33,12 +34,16 @@ def converter_para_csv(dados: list, titulos: list, nome_saida: str):
     df = pd.DataFrame(dados, columns=titulos)
     df.to_csv(nome_saida, index=False, encoding='utf-8')
     print(f'Arquivo "{nome_saida}" salvo.')
+    return nome_saida
 
 
 if __name__ == '__main__':
     pdf = r'..\web scraping\Arquivos PDF\Anexo_I_Rol_2021RN_465.2021_RN627L.2024.pdf'
     dados, titulos = extrair_dados(pdf, pagina_inicial=3)
-    converter_para_csv(dados, titulos, 'Anexo_I.csv')
-
+    arquivo_csv = converter_para_csv(dados, titulos, 'Anexo_I.csv')
+    # Transformando em uma lista para o correto uso da função de compactar arquivo.
+    arquivo_csv = [arquivo_csv]
+    print(arquivo_csv)
+    compactar_arquivos(arquivo_csv, 'Arquivo CSV', 'CSV compactado')
 
 
