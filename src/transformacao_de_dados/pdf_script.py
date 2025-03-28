@@ -2,7 +2,7 @@ import pdfplumber
 import pandas as pd
 
 
-def extrair_dados(caminho_pdf, pagina_inicial=3):
+def extrair_dados(caminho_pdf: str, pagina_inicial: int):
     dados_tabela = []
     with pdfplumber.open(caminho_pdf) as arquivo_pdf:
         for indice, pagina in enumerate(arquivo_pdf.pages[pagina_inicial - 1:]):
@@ -29,10 +29,10 @@ def extrair_dados(caminho_pdf, pagina_inicial=3):
     return dados_tabela, titulos
 
 
-def converter_para_csv(dados, titulos, nome_saida):
+def converter_para_csv(dados: list, titulos: list, nome_saida: str):
     df = pd.DataFrame(dados, columns=titulos)
     df.to_csv(nome_saida, index=False, encoding='utf-8')
-    print(f'Arquivo "{nome_saida}" salvo no diretório atual.')
+    print(f'Arquivo "{nome_saida}" salvo.')
 
 
 if __name__ == '__main__':
