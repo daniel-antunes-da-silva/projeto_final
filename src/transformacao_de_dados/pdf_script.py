@@ -45,6 +45,6 @@ if __name__ == '__main__':
     arquivo_csv = converter_para_csv(dados, titulos, 'Anexo_I.csv')
     # Transformando em uma lista para o correto uso da função de compactar arquivo.
     arquivo_csv = [arquivo_csv]
-    compactar_arquivos(arquivo_csv, 'Arquivo CSV')
+    compactar_arquivos(arquivo_csv, 'Teste_Daniel_Antunes')
 
 
