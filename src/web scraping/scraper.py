@@ -4,6 +4,7 @@ from src.funcoes_extras import compactar_arquivos
 
 def obter_arquivos(urls: list):
     nomes_arquivos = []
+
     for url in urls:
         try:
             resposta = requests.get(url)
@@ -24,4 +25,4 @@ if __name__ == '__main__':
             '-procedimentos/Anexo_II_DUT_2021_RN_465.2021_RN628.2025_RN629.2025.pdf']
 
     arquivos = obter_arquivos(urls)
-    compactar_arquivos(arquivos, 'Arquivos PDF', 'PDFs compactados')
+    compactar_arquivos(arquivos, 'PDFs compactados')

@@ -1,12 +1,16 @@
 import os
-import shutil
+from zipfile import ZipFile
 
 
-def compactar_arquivos(arquivos: list, pasta_para_arquivos: str, nome_zip: str):
+def compactar_arquivos(arquivos: list, nome_zip: str):
     try:
-        os.mkdir(pasta_para_arquivos)
-    except FileExistsError:
-        pass
-    for arquivo in arquivos:
-        shutil.move(arquivo, pasta_para_arquivos)
-    shutil.make_archive(nome_zip, 'zip', pasta_para_arquivos)
+        with ZipFile(f"{nome_zip}.zip", "w") as arquivo_zip:
+            for arquivo in arquivos:
+                arquivo_zip.write(arquivo, os.path.basename(arquivo))
+        return True
+    except FileNotFoundError:
+        print('Arquivo base não encontrado.')
+        return None
+    except Exception as e:
+        print(f'Erro ao compactar arquivos: {e}')
+        return None
