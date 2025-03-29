@@ -4,7 +4,6 @@ from src.funcoes_extras import compactar_arquivos
 
 def obter_arquivos(urls: list):
     nomes_arquivos = []
-
     for url in urls:
         try:
             resposta = requests.get(url)
@@ -13,6 +12,8 @@ def obter_arquivos(urls: list):
             nomes_arquivos.append(nome_arquivo)
             with open(nome_arquivo, 'wb') as file:
                 file.write(resposta.content)
+        except ConnectionError:
+            print('Erro de conexão. Verifique sua conexão e tente novamente!')
         except Exception as e:
             print(f'Erro: {e}')
     return nomes_arquivos
